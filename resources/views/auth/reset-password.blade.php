@@ -68,9 +68,20 @@
                         </div>
                     </div>
                 </div>
-
+                @if ($errors->any())
+                    <div class="mb-4 rounded-lg bg-red-100 p-3 text-red-700 text-sm">
+                        <ul class="list-disc list-inside">
+                    @foreach ($errors->all() as $error)
+                       <li>{{ $error }}</li>
+                    @endforeach
+                    </ul>
+                    </div>
+                    @endif
                 <!-- Formulaire de réinitialisation -->
-                <form  class="space-y-6">
+                <form method="post" action="{{ route('password.store') }}"  class="space-y-6">
+                    @csrf
+                    <input type="hidden" name="email" value="{{$request->email}}">
+                    <input type="hidden" name="token" value="{{$request->token}}">
                     <!-- Champ nouveau mot de passe -->
                     <div>
                         <label for="new-password" class="block text-sm font-medium text-gray-700 mb-2">
@@ -79,9 +90,8 @@
                         </label>
                         <div class="relative">
                             <input 
-                                type="password" 
-                                id="new-password" 
-                                name="new-password"
+                                type="password"
+                                name="password"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-input"
                                 placeholder="Saisissez votre nouveau mot de passe"
                                 required
@@ -108,7 +118,7 @@
                             <input 
                                 type="password" 
                                 id="confirm-password" 
-                                name="confirm-password"
+                                name="password_confirmation"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-input"
                                 placeholder="Confirmez votre nouveau mot de passe"
                                 required
@@ -172,7 +182,7 @@
                 <div class="mt-6 pt-6 border-t border-gray-200 text-center">
                     <p class="text-sm text-gray-600">
                         Vous vous souvenez de votre mot de passe ?
-                        <a href="login.html" class="font-medium text-indigo-600 hover:text-indigo-500">
+                        <a href="{{route('login')}}" class="font-medium text-indigo-600 hover:text-indigo-500">
                             Se connecter
                         </a>
                     </p>
@@ -191,29 +201,6 @@
                 <br>
                 Si vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet email.
             </p>
-        </div>
-    </div>
-
-    <!-- Modal de succès -->
-    <div id="success-modal" class="fixed inset-0 bg-gray-500 bg-opacity-75 items-center justify-center p-4 hidden z-50">
-        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 animate-fadeIn">
-            <div class="text-center">
-                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100">
-                    <i class="fas fa-check text-green-600 text-2xl"></i>
-                </div>
-                <h3 class="mt-4 text-lg font-medium text-gray-900">Mot de passe réinitialisé !</h3>
-                <div class="mt-2">
-                    <p class="text-sm text-gray-500">
-                        Votre mot de passe a été changé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.
-                    </p>
-                </div>
-                <div class="mt-6">
-                    <a href="{{route('login')}}" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        <i class="fas fa-sign-in-alt mr-2"></i>
-                        Se connecter
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
 @endsection

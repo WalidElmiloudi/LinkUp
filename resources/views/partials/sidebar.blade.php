@@ -4,7 +4,7 @@
                             <h2 class="text-lg font-semibold text-gray-900">Menu</h2>
                         </div>
                         <nav class="p-4 space-y-1">
-                            <a href="#" data-page="home" class="sidebar-link block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition-colors">
+                            <a href="/home" data-page="home" class="sidebar-link block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition-colors">
                                 <i class="fas fa-home mr-3"></i> Tableau de bord
                             </a>
                             <a href="/profile" data-page="profile" class="sidebar-link block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition-colors">

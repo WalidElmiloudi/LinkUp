@@ -21,7 +21,7 @@ Route::get('/search', function () {
 
 Route::get('/profile/edit', function () {
     return view('pages.updating-profile');
-})->middleware('auth');
+})->middleware('auth')->name('profile.edit');
 
 Route::get('/password', function () {
     return view('auth.password-reset');
@@ -30,5 +30,7 @@ Route::get('/password', function () {
 Route::get('/security', function () {
     return view('pages.security');
 })->middleware('auth');
+
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
 require __DIR__.'/auth.php';

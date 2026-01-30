@@ -11,17 +11,14 @@
 
                 <!-- Navigation principale -->
                 <nav class="hidden md:flex space-x-4">
-                    <a href="#" data-page="home" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
+                    <a href="/home" data-page="home" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
                         <i class="fas fa-home mr-1"></i> Accueil
                     </a>
-                    <a href="#" data-page="search" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
+                    <a href="/search" data-page="search" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
                         <i class="fas fa-search mr-1"></i> Recherche
                     </a>
-                    <a href="#" data-page="profile" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
+                    <a href="/profile" data-page="profile" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
                         <i class="fas fa-user mr-1"></i> Profil
-                    </a>
-                    <a href="#" data-page="settings" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-cog mr-1"></i> Paramètres
                     </a>
                 </nav>
 
@@ -47,17 +44,14 @@
             <!-- Menu mobile -->
             <div id="mobile-menu" class="md:hidden hidden pb-3 border-t border-gray-200">
                 <div class="pt-2 space-y-1">
-                    <a href="#" data-page="home" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">
+                    <a href="/home" data-page="home" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">
                         <i class="fas fa-home mr-2"></i> Accueil
                     </a>
-                    <a href="#" data-page="search" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">
+                    <a href="/search" data-page="search" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">
                         <i class="fas fa-search mr-2"></i> Recherche
                     </a>
-                    <a href="#" data-page="profile" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">
+                    <a href="/profile" data-page="profile" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">
                         <i class="fas fa-user mr-2"></i> Profil
-                    </a>
-                    <a href="#" data-page="settings" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">
-                        <i class="fas fa-cog mr-2"></i> Paramètres
                     </a>
                     <a href="{{ route('logout') }}" class="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">
                         <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion

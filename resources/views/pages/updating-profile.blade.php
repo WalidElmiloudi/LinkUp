@@ -1,4 +1,12 @@
-        <div id="edit-profile-page" class="page hidden animate-fadeIn">
+@extends('layouts.app')
+
+@section('title','Home')
+
+@section('content')
+
+@include('partials.header')
+
+<div>
             <div class="mb-8">
                 <h1 class="text-3xl font-bold text-gray-900">Modifier mon profil</h1>
                 <p class="text-gray-600 mt-2">Mettez à jour vos informations personnelles</p>
@@ -13,43 +21,37 @@
                             </h2>
                         </div>
                         <div class="p-6">
-                            <form id="edit-profile-form">
+                            @if ($errors->any())
+                              <div class="mb-4 rounded-lg bg-red-100 p-3 text-red-700 text-sm">
+                                <ul class="list-disc list-inside">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                            </ul>
+                            </div>
+                            @endif
+                            <form method="POST" action="{{ route('profile.update') }}">
+                                @csrf
+                                @method('PATCH')
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label for="firstname" class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
-                                        <input type="text" id="firstname" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-colors" value="Jean" required>
-                                    </div>
-                                    <div>
-                                        <label for="lastname" class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
-                                        <input type="text" id="lastname" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-colors" value="Dupont" required>
+                                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nom Complet</label>
+                                        <input type="text" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-colors" value="{{ auth()->user()->name }}" required>
                                     </div>
                                     <div class="md:col-span-2">
                                         <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Pseudo unique</label>
-                                        <input type="text" id="username" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-colors" value="jdupont" required>
+                                        <input type="text" name="username" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-colors" value="{{ auth()->user()->username }}" required>
                                         <p class="mt-1 text-sm text-gray-500">Ce pseudo sera visible par les autres membres et doit être unique.</p>
                                     </div>
                                     <div class="md:col-span-2">
                                         <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Adresse email</label>
                                         <div class="flex items-center">
-                                            <input type="email" id="email" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-colors" value="jean.dupont@example.com" required>
+                                            <input type="email" name="email" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-colors" value="{{ auth()->user()->email }}" required>
                                             <span class="ml-3 inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                                 <i class="fas fa-check-circle mr-1"></i> Vérifié
                                             </span>
                                         </div>
                                         <p class="mt-1 text-sm text-gray-500">Un email de vérification sera envoyé si vous changez votre adresse.</p>
-                                    </div>
-                                    <div class="md:col-span-2">
-                                        <label for="bio" class="block text-sm font-medium text-gray-700 mb-1">Bio</label>
-                                        <textarea id="bio" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-colors">Développeur full-stack passionné par les nouvelles technologies. J'aime le café, le code et les randonnées en montagne. Actuellement en recherche de nouveaux défis techniques.</textarea>
-                                        <p class="mt-1 text-sm text-gray-500">Décrivez-vous en quelques mots (max. 500 caractères). <span id="bio-counter" class="font-medium">148/500</span></p>
-                                    </div>
-                                    <div class="md:col-span-2">
-                                        <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Localisation</label>
-                                        <input type="text" id="location" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-colors" value="Paris, France">
-                                    </div>
-                                    <div class="md:col-span-2">
-                                        <label for="website" class="block text-sm font-medium text-gray-700 mb-1">Site web</label>
-                                        <input type="url" id="website" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-colors" value="https://jdupont.dev">
                                     </div>
                                 </div>
                                 
@@ -134,3 +136,4 @@
                 </div>
             </div>
         </div>
+@endsection
