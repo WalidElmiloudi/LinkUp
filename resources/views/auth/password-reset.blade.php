@@ -1,4 +1,9 @@
-        <div>
+@extends('layouts.app')
+
+@section('title','Change Password')
+
+@section('content')
+<div>
             <div class="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div class="max-w-md w-full space-y-8">
                     <div>
@@ -15,7 +20,8 @@
                             Entrez votre email pour réinitialiser votre mot de passe
                         </p>
                     </div>
-                    <form id="forgot-password-form" class="mt-8 space-y-6">
+                    <form method="post" action="{{route('password.email') }}" class="mt-8 space-y-6">
+                        @csrf
                         <div class="rounded-md shadow-sm">
                             <div>
                                 <label for="reset-email" class="block text-sm font-medium text-gray-700 mb-1">Adresse email</label>
@@ -41,3 +47,4 @@
                 </div>
             </div>
         </div>
+@endsection

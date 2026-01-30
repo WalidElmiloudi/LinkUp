@@ -1,3 +1,0 @@
-@extends(partials.structure)
-
-@section

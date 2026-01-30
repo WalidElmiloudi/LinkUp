@@ -1,10 +1,18 @@
-        <div id="home-page" class="page animate-fadeIn">
+@extends('layouts.app')
+
+@section('title','Home')
+
+@section('content')
+
+@include('partials.header')
+
+<div id="home-page" class="page animate-fadeIn">
             <div class="mb-8">
                 <h1 class="text-3xl font-bold text-gray-900">Tableau de bord</h1>
                 <p class="text-gray-600 mt-2">Bienvenue sur votre espace personnel LINKUP</p>
             </div>
-            
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                @include('partials.sidebar')
                 <!-- Contenu principal -->
                 <div class="lg:col-span-3">
                     <!-- En-tête du profil -->
@@ -126,3 +134,10 @@
                 </div>
             </div>
         </div>
+@endsection
+
+@section('footer')
+
+@include('partials.footer')
+
+@endsection

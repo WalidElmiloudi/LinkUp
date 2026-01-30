@@ -1,4 +1,9 @@
-        <div id="change-password-page" class="page hidden animate-fadeIn">
+@extends('layouts.app')
+
+@section('title','Change Password')
+
+@section('content')
+    <div>
             <div class="max-w-2xl mx-auto">
                 <div class="mb-8">
                     <h1 class="text-3xl font-bold text-gray-900">Changer le mot de passe</h1>
@@ -112,3 +117,5 @@
                 </div>
             </div>
         </div>
+@endsection
+        

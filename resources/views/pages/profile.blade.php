@@ -1,4 +1,11 @@
-        <div id="profile-page" class="page hidden animate-fadeIn">
+@extends('layouts.app')
+
+@section('title','Profile')
+
+@section('content')
+
+@include('partials.header')
+<div>
             <div class="mb-8">
                 <h1 class="text-3xl font-bold text-gray-900">Mon profil</h1>
                 <p class="text-gray-600 mt-2">Visualisez et gérez vos informations personnelles</p>
@@ -162,3 +169,10 @@
                 </div>
             </div>
         </div>
+@endsection
+
+@section('footer')
+
+@include('partials.footer')
+
+@endsection
