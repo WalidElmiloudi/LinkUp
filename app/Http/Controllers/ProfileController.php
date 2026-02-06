@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -14,6 +15,12 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
+    public function show(User $user): View
+    {
+        $posts = $user->posts()->latest()->get();
+        return view('pages.profile',['user' => $user,'posts' => $posts]);
+    }
+
     public function edit(Request $request): View
     {
         return view('profile.edit', [
@@ -30,9 +37,17 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,' . auth()->id(),
             'email' => 'required|email|max:255|unique:users,email,' . auth()->id(),
+            'image' => 'nullable|image|max:5120'
         ]);
+        
+        $data = $request->only('name', 'username', 'email');
 
-        $request->user()->update($request->only('name', 'username', 'email'));
+        if ($request->hasFile('image')) {
+            $data['profile_photo'] = $request->file('image')
+            ->store('uploads', 'public');
+        }
+
+        $request->user()->update($data);
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

@@ -6,6 +6,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
+use App\Models\FriendRequest;
+use App\Models\Post;
+use App\Models\Like;
 
 class User extends Authenticatable
 {
@@ -22,6 +26,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'profile_photo',
     ];
 
     /**
@@ -45,5 +50,78 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function sentFriendRequests()
+    {
+        return $this->hasMany(FriendRequest::class, 'sender_id');
+    }
+
+    public function receiveFriendRequests()
+    {
+        return $this->hasMany(FriendRequest::class, 'reciever_id');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    public function friendsRelation()
+    {
+        $userId = $this->id;
+        return User::whereIn('id', function ($query) use ($userId) {
+            $query->select('reciever_id')
+                ->from('friend_requests')
+                ->where('sender_id', $userId)
+                ->where('stat', 'accepted')
+                ->union(
+                    DB::table('friend_requests')
+                        ->select('sender_id')
+                        ->where('reciever_id', $userId)
+                        ->where('stat', 'accepted')
+                );
+        });
+    }
+
+    public function isFriendWith(int $userId){
+        return $this->friends()->where('friend_id',$userId)->exists();
+    }
+
+    public function hasPendingRequestTo(int $userId){
+        return FriendRequest::where('sender_id', $this->id)
+            ->where('reciever_id', $userId)
+            ->where('stat', 'pending')
+            ->exists();
+    }
+
+    public function sendFriendRequestTo(int $userId): void{
+        if ($this->id === $userId) return;
+        FriendRequest::firstOrCreate(['sender_id' => $this->id, 'reciever_id' => $userId,], ['stat' => 'pending']);
+    }
+
+    public function removeFriend(int $userId): void{
+        Friendship::where(function ($q) use ($userId) {
+            $q->where('user_id', $this->id)
+            ->where('friend_id', $userId);})->delete();
+    }
+
+    public function friends()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'friendships',
+            'user_id',
+            'friend_id'
+        );
     }
 }
