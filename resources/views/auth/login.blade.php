@@ -18,7 +18,7 @@
                         </h2>
                         <p class="mt-2 text-center text-sm text-gray-600">
                             Ou
-                            <a href="{{ route('register') }}" id="register-link" class="font-medium text-indigo-600 hover:text-indigo-500">
+                            <a href="/register" id="register-link" class="font-medium text-indigo-600 hover:text-indigo-500">
                                 créez un nouveau compte
                             </a>
                         </p>
@@ -32,7 +32,7 @@
                     </ul>
                     </div>
                     @endif
-                    <form method="POST" action="{{ route('login') }}" class="mt-8 space-y-6">
+                    <form method="POST" action="login" class="mt-8 space-y-6">
                         @csrf
                         <div class="rounded-md shadow-sm space-y-4">
                             <div>

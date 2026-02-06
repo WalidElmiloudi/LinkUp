@@ -19,7 +19,7 @@
                         </h2>
                         <p class="mt-2 text-center text-sm text-gray-600">
                             Ou
-                            <a href="{{ route('login') }}" id="login-link" class="font-medium text-indigo-600 hover:text-indigo-500">
+                            <a href="/login" id="login-link" class="font-medium text-indigo-600 hover:text-indigo-500">
                                 connectez-vous à votre compte
                             </a>
                         </p>
@@ -33,7 +33,7 @@
                     </ul>
                     </div>
                     @endif
-                    <form method="post" action="{{ route('register') }}" class="mt-8 space-y-6">
+                    <form method="post" action="/register" class="mt-8 space-y-6">
                         @csrf
                         <div class="rounded-md shadow-sm space-y-4">
                             <div class="grid grid-cols-2 gap-4">
@@ -66,13 +66,7 @@
                                         <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
                                     </button>
                                 </div>
-                                <div class="mt-4">
-                                    <p class="text-sm font-medium text-gray-700 mb-2">Force du mot de passe</p>
-                                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                        <div id="register-password-strength-bar" class="password-strength-bar h-full bg-red-500 w-1/4"></div>
-                                    </div>
-                                    <p id="register-password-strength-text" class="mt-1 text-sm text-red-500">Faible</p>
-                                </div>
+
                             </div>
                             
                             <div>

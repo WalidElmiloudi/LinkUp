@@ -18,4 +18,5 @@ class SearchController extends Controller
 
         return view('pages.search', compact('user'));
     }
+
 }

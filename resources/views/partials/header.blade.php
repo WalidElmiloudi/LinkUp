@@ -11,14 +11,17 @@
 
                 <!-- Navigation principale -->
                 <nav class="hidden md:flex space-x-4">
-                    <a href="/home" data-page="home" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
+                    <a href="/home"  class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
                         <i class="fas fa-home mr-1"></i> Accueil
                     </a>
-                    <a href="/search" data-page="search" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
+                    <a href="/search"  class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
                         <i class="fas fa-search mr-1"></i> Recherche
                     </a>
-                    <a href="/profile" data-page="profile" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
+                    <a href="{{ route('profile.show',auth()->user()->id) }}" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
                         <i class="fas fa-user mr-1"></i> Profil
+                    </a>
+                    <a href="{{ route('friends.show',auth()->user()->id) }}" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-user mr-1"></i> Amis
                     </a>
                 </nav>
 
@@ -26,7 +29,11 @@
                 <div class="flex items-center space-x-3">
                     <!-- Avatar utilisateur -->
                     <div class="relative">
-                        <img id="user-avatar" class="h-10 w-10 rounded-full border-2 border-gray-200 object-cover cursor-pointer" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar">
+                                @if(auth()->user()->profile_photo)
+                                <img id="user-avatar" class="h-10 w-10 rounded-full border-2 border-gray-200 object-cover cursor-pointer" src="{{Storage::url(auth()->user()->profile_photo)}}" alt="Avatar">
+                                @else
+                                <img id="user-avatar" class="h-10 w-10 rounded-full border-2 border-gray-200 object-cover cursor-pointer" src="https://intranet.youcode.ma/storage/users/profile/0.jpg" alt="Avatar">
+                                @endif                        
                     </div>
                     
                     <!-- Bouton déconnexion -->
@@ -50,7 +57,7 @@
                     <a href="/search" data-page="search" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">
                         <i class="fas fa-search mr-2"></i> Recherche
                     </a>
-                    <a href="/profile" data-page="profile" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">
+                    <a href="{{ route('profile.show',auth()->user()->id) }}" data-page="profile" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">
                         <i class="fas fa-user mr-2"></i> Profil
                     </a>
                     <a href="{{ route('logout') }}" class="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100">

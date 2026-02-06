@@ -13,6 +13,7 @@
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                @include('partials.sidebar')
                 <div class="lg:col-span-2">
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
                         <div class="p-6 border-b border-gray-200">
@@ -30,9 +31,29 @@
                             </ul>
                             </div>
                             @endif
-                            <form method="POST" action="{{ route('profile.update') }}">
+                            <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
+                                                                              <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <div class="p-6 border-b border-gray-200">
+                            <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                                <i class="fas fa-camera mr-2 text-indigo-600"></i> Photo de profil
+                            </h2>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex flex-col items-center">
+                                <div class="relative mb-6">
+                                @if(auth()->user()->profile_photo)
+                                <img src="../storage/{{ auth()->user()->profile_photo }}" alt="Avatar" class="h-32 w-32 rounded-full border-4 border-white shadow-lg object-cover">
+                                @else
+                                <img src="https://intranet.youcode.ma/storage/users/profile/0.jpg" alt="Avatar" class="h-32 w-32 rounded-full border-4 border-white shadow-lg object-cover">
+                                @endif
+                                    <input type="file" name="image" class="cursor-pointer">
+                                </div>
+                                <p class="text-sm text-gray-500 text-center">Taille maximale : 5MB. Formats acceptés : JPG, PNG, GIF.</p>
+                            </div>
+                        </div>
+                    </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nom Complet</label>
@@ -64,73 +85,6 @@
                                     </button>
                                 </div>
                             </form>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="lg:col-span-1">
-                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                        <div class="p-6 border-b border-gray-200">
-                            <h2 class="text-xl font-semibold text-gray-900 flex items-center">
-                                <i class="fas fa-camera mr-2 text-indigo-600"></i> Photo de profil
-                            </h2>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex flex-col items-center">
-                                <div class="relative mb-6">
-                                    <img id="avatar-preview" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar" class="h-48 w-48 rounded-full border-4 border-white shadow-lg object-cover">
-                                    <button id="change-avatar-btn" class="absolute bottom-0 right-0 h-10 w-10 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        <i class="fas fa-camera"></i>
-                                    </button>
-                                </div>
-                                <input type="file" id="avatar-upload" accept="image/*" class="hidden">
-                                <p class="text-sm text-gray-500 text-center">Taille maximale : 5MB. Formats acceptés : JPG, PNG, GIF.</p>
-                                <button id="remove-avatar-btn" class="mt-4 px-4 py-2 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-                                    Supprimer la photo
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white rounded-xl shadow-sm overflow-hidden mt-8">
-                        <div class="p-6 border-b border-gray-200">
-                            <h2 class="text-xl font-semibold text-gray-900 flex items-center">
-                                <i class="fas fa-bell mr-2 text-indigo-600"></i> Préférences
-                            </h2>
-                        </div>
-                        <div class="p-6">
-                            <div class="space-y-4">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="font-medium text-gray-900">Notifications email</p>
-                                        <p class="text-sm text-gray-500">Recevoir des emails de notification</p>
-                                    </div>
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" class="sr-only peer" checked>
-                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-                                    </label>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="font-medium text-gray-900">Profil public</p>
-                                        <p class="text-sm text-gray-500">Rendre mon profil visible par tous</p>
-                                    </div>
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" class="sr-only peer" checked>
-                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-                                    </label>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="font-medium text-gray-900">Messages privés</p>
-                                        <p class="text-sm text-gray-500">Accepter les messages de tous les membres</p>
-                                    </div>
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" class="sr-only peer">
-                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-                                    </label>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

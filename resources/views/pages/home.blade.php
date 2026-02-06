@@ -19,7 +19,11 @@
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-8">
                         <div class="p-6 flex flex-col md:flex-row items-center md:items-start">
                             <div class="mb-6 md:mb-0 md:mr-6">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar" class="h-32 w-32 rounded-full border-4 border-white shadow-lg object-cover">
+                                @if(auth()->user()->profile_photo)
+                                <img src="../storage/{{ auth()->user()->profile_photo }}" alt="Avatar" class="h-32 w-32 rounded-full border-4 border-white shadow-lg object-cover">
+                                @else
+                                <img src="https://intranet.youcode.ma/storage/users/profile/0.jpg" alt="Avatar" class="h-32 w-32 rounded-full border-4 border-white shadow-lg object-cover">
+                                @endif
                             </div>
                             <div class="text-center md:text-left flex-1">
                                 <div class="flex flex-col md:flex-row md:items-center md:justify-between">

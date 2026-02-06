@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FriendController;
+use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,9 +16,8 @@ Route::get('/home', function () {
     return view('pages.home');
 })->middleware('auth')->name('home');
 
-Route::get('/profile', function () {
-    return view('pages.profile');
-})->middleware('auth');
+Route::get('/profile/{user}/', [ProfileController::class, 'show'])->middleware('auth')->name('profile.show');
+
 
 Route::get('/search', function () {
     return view('pages.search');
@@ -32,7 +35,25 @@ Route::get('/security', function () {
     return view('pages.security');
 })->middleware('auth');
 
-Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-Route::post('/search', [SearchController::class, 'find'])->name('users.find');
+Route::patch('/profile', [ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
+Route::post('/search', [SearchController::class, 'find'])->middleware('auth')->name('users.find');
+Route::post('friend', [FriendController::class, 'send'])->middleware('auth')->name('friend.sendRequest');
+Route::get('/friend/{user}', [FriendController::class, 'show'])->middleware('auth')->name('friends.show');
+Route::patch('/friend/{friendRequest}/accept', [FriendController::class, 'accept'])->middleware('auth')->name('friends.accept');
+Route::delete('/friend/{friendRequest}/reject', [FriendController::class, 'reject'])->middleware('auth')->name('friends.reject');
+Route::delete('/friend/{friendRequest}/cancel', [FriendController::class, 'cancel'])->middleware('auth')->name('friends.cancel');
+Route::delete('/friend/{user}/remove', [FriendController::class, 'remove'])->middleware('auth')->name('friends.remove');
+
+Route::post('/post/store',[PostController::class, 'store'])->middleware('auth')->name('post.store');
+Route::delete('/post/{post}/delete}',[PostController::class, 'destroy'])->middleware('auth')->name('post.destroy');
+Route::get('/post/{post}/edit}',[PostController::class, 'edit'])->middleware('auth')->name('post.edit');
+Route::put('/post/{post}/update}',[PostController::class, 'update'])->middleware('auth')->name('post.update');
+
+Route::post('/posts/{post}/like', [LikeController::class, 'store'])->name('posts.like');
+Route::delete('/posts/{post}/like', [LikeController::class, 'destroy'])->name('posts.unlike');
+
+Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 require __DIR__.'/auth.php';
