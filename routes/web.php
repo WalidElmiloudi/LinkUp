@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PostController;
@@ -12,9 +13,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/home', function () {
-    return view('pages.home');
-})->middleware('auth')->name('home');
+Route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
 
 Route::get('/profile/{user}/', [ProfileController::class, 'show'])->middleware('auth')->name('profile.show');
 
@@ -31,8 +30,8 @@ Route::get('/password', function () {
     return view('auth.password-reset');
 });
 
-Route::get('/security', function () {
-    return view('pages.security');
+Route::get('/password/change' , function(){
+    return view('auth.change-password');
 })->middleware('auth');
 
 Route::patch('/profile', [ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
