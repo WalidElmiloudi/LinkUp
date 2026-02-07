@@ -76,22 +76,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
-    public function friendsRelation()
-    {
-        $userId = $this->id;
-        return User::whereIn('id', function ($query) use ($userId) {
-            $query->select('reciever_id')
-                ->from('friend_requests')
-                ->where('sender_id', $userId)
-                ->where('stat', 'accepted')
-                ->union(
-                    DB::table('friend_requests')
-                        ->select('sender_id')
-                        ->where('reciever_id', $userId)
-                        ->where('stat', 'accepted')
-                );
-        });
-    }
 
     public function isFriendWith(int $userId){
         return $this->friends()->where('friend_id',$userId)->exists();
