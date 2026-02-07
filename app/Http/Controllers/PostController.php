@@ -21,7 +21,7 @@ class PostController extends Controller
     {
         $data = $request->validate([
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:1024',
             'video' => 'nullable|mimetypes:video/mp4,video/webm|max:10240',
         ]);
 
@@ -81,6 +81,6 @@ class PostController extends Controller
 
             $post->delete();
 
-            return redirect()->route('profile.show');
+            return redirect()->route('profile.show',auth()->user()->id);
         }
 }
